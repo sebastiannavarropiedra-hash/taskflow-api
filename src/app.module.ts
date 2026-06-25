@@ -7,7 +7,7 @@ import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [ MongooseModule.forRoot(
-      'mongodb+srv://profesor:SakxqlC9o8HyVD1u@dwf-07.ym1u2cb.mongodb.net/taskflow'), UsersModule],
+      'mongodb+srv://Testuser:CaP21Rvww8DXD6Vb@dwf-07.ym1u2cb.mongodb.net/taskflow'), UsersModule],
   controllers: [AppController],
   providers: [AppService],
 })
