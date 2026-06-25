@@ -23,6 +23,9 @@ export class Project {
     @Prop({ type: Types.ObjectId, ref: 'User', required: true })
     ownerId!: string;
 
+    @Prop({ required: true, select: false })
+    passwordHash?: string;
+
 
 
 

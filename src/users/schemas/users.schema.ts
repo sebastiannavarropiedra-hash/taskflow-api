@@ -12,11 +12,11 @@ export class User {
   @Prop({ required: true, unique: true })
   email?: string;
 
-  @Prop({ required: true })
-  passwordHash?: string;
-
   @Prop({ default: Date.now })
   createdAt?: Date;
+
+  @Prop({ required: true, select: false })
+  passwordHash?: string;
 }
 
 // Exportamos el schema para registrarlo en el módulo

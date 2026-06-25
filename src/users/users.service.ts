@@ -11,10 +11,10 @@ export class UsersService {
 
     constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) { }
 
-    async create(createUserDto: CreateUserDto): Promise<User> {
-        const user = new this.userModel(createUserDto);
-        return user.save();
-    }
+   async create(createUserDto: CreateUserDto): Promise<User> {
+  const user = new this.userModel(createUserDto);
+  return user.save();
+}
 
 
     // obtener todos los usuarios
@@ -29,9 +29,9 @@ export class UsersService {
     }
 
     // actualizar un usuario por id
-    async update(id: string, updateUserDto: UpdateUserDto): Promise<User | null> {
-        return this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true }).exec();
-    }
+   async update(id: string, updateUserDto: UpdateUserDto): Promise<User | null> {
+  return this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true }).exec();
+}
 
 
     // Eliminar usuario
