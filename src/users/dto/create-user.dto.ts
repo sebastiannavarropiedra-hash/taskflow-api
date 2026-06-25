@@ -1,16 +1,22 @@
-import { IsString, IsNotEmpty, IsEmail, MinLength } from 'class-validator';
+import { IsString, IsNotEmpty, IsEmail, MinLength, MaxLength, Matches } from 'class-validator';
 
 export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   @MinLength(3)
-  name?: string;
+  @MaxLength(50)
+  name!: string;
 
   @IsEmail()
-  email?: string;
+  @MaxLength(100)
+  email!: string;
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(6)
-  passwordHash?: string;
+  @MinLength(8)
+  @MaxLength(20)
+  @Matches(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).+$/, {
+    message: 'La contraseña debe tener mayúscula, minúscula, número y símbolo'
+  })
+  passwordHash!: string;
 }

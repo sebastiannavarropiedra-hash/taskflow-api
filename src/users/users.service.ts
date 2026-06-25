@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from './schemas/users.schema';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 
 @Injectable()
@@ -10,11 +11,11 @@ export class UsersService {
 
     constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) { }
 
-    // crear usuario
     async create(createUserDto: CreateUserDto): Promise<User> {
         const user = new this.userModel(createUserDto);
         return user.save();
     }
+
 
     // obtener todos los usuarios
     async findAll(): Promise<User[]> {
@@ -28,14 +29,15 @@ export class UsersService {
     }
 
     // actualizar un usuario por id
-    async update(id: string, updateUserDto: CreateUserDto): Promise<User | null> {
+    async update(id: string, updateUserDto: UpdateUserDto): Promise<User | null> {
         return this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true }).exec();
     }
 
-   // Eliminar usuario
-  async remove(id: string): Promise<User | null> {
-    return this.userModel.findByIdAndDelete(id).exec();
-  }
+
+    // Eliminar usuario
+    async remove(id: string): Promise<User | null> {
+        return this.userModel.findByIdAndDelete(id).exec();
+    }
 
 
 
