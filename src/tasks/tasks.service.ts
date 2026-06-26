@@ -7,7 +7,7 @@ import { UpdateTaskDto } from './dto/update-task.dto';
 
 @Injectable()
 export class TasksService {
-  constructor(@InjectModel(Task.name) private taskModel: Model<TaskDocument>) {}
+  constructor(@InjectModel(Task.name) private taskModel: Model<TaskDocument>) { }
 
   async create(createTaskDto: CreateTaskDto): Promise<Task> {
     const task = new this.taskModel(createTaskDto);
@@ -29,4 +29,9 @@ export class TasksService {
   async remove(id: string): Promise<Task | null> {
     return this.taskModel.findByIdAndDelete(id).exec();
   }
+
+  async findByStatus(status: string): Promise<Task[]> {
+    return this.taskModel.find({ status }).exec();
+  }
+
 }
