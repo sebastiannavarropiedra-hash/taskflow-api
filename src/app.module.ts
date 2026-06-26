@@ -4,11 +4,13 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose/dist/mongoose.module';
 import { UsersModule } from './users/users.module';
 import { ProjectsModule } from './projects/projects.module';
+import { TasksModule } from './tasks/tasks.module';
+import { CommentsModule } from './comments/comments.module';
 
 
 @Module({
   imports: [ MongooseModule.forRoot(
-      'mongodb+srv://Testuser:CaP21Rvww8DXD6Vb@dwf-07.ym1u2cb.mongodb.net/taskflow'), UsersModule, ProjectsModule],
+      'mongodb+srv://Testuser:CaP21Rvww8DXD6Vb@dwf-07.ym1u2cb.mongodb.net/taskflow'), UsersModule, ProjectsModule, TasksModule, CommentsModule],
   controllers: [AppController],
   providers: [AppService],
 })
