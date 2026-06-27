@@ -41,6 +41,10 @@ export class UsersController {
   findProjects(@Param('id') id: string) {
     return this.usersService.findProjects(id);
   }
+  @Get(':id/tasks')
+  findTasks(@Param('id') id: string) {
+    return this.usersService.findTasks(id);
+  }
 
 
 }

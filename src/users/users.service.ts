@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from './schemas/users.schema';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Project, ProjectDocument } from 'projects/schemas/project.schema';
+import { Task, TaskDocument } from 'tasks/schemas/task.schema';
 
 
 @Injectable()
@@ -12,7 +13,9 @@ export class UsersService {
 
     constructor(
         @InjectModel(User.name) private userModel: Model<UserDocument>,
-        @InjectModel(Project.name) private projectModel: Model<ProjectDocument>,) { }
+        @InjectModel(Project.name) private projectModel: Model<ProjectDocument>,
+        @InjectModel(Task.name) private taskModel: Model<TaskDocument>,
+    ) { }
 
     async create(createUserDto: CreateUserDto): Promise<User> {
         const user = new this.userModel(createUserDto);
@@ -46,5 +49,8 @@ export class UsersService {
         return this.projectModel.find({ ownerId: userId }).exec();
     }
 
+    async findTasks(userId: string) {
+        return this.taskModel.find({ assignedTo: userId }).exec();
+    }
 
 }
