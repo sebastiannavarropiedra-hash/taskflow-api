@@ -8,7 +8,7 @@ import { ProjectsModule } from 'projects/projects.module';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
-    ProjectsModule, 
+    ProjectsModule, // 
   ],
   controllers: [UsersController],
   providers: [UsersService],
