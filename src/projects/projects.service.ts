@@ -41,4 +41,14 @@ export class ProjectsService {
         return this.taskModel.find({ projectId }).exec();
     }
 
+    async findByDateRange(startDate: string, endDate: string) {
+        return this.projectModel.find({
+            startDate: { $gte: startDate },
+            endDate: { $lte: endDate },
+        }).exec();
+    }
+
+
+
+
 }

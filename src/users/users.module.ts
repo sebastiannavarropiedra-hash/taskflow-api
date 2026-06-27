@@ -5,12 +5,14 @@ import { MongooseModule } from '@nestjs/mongoose/dist/mongoose.module';
 import { User, UserSchema } from './schemas/users.schema';
 import { ProjectsModule } from 'projects/projects.module';
 import { TasksModule } from 'tasks/tasks.module';
+import { CommentsModule } from 'comments/comments.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     ProjectsModule, 
     TasksModule, 
+    CommentsModule
   ],  
   
   controllers: [UsersController],

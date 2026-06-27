@@ -6,6 +6,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Project, ProjectDocument } from 'projects/schemas/project.schema';
 import { Task, TaskDocument } from 'tasks/schemas/task.schema';
+import { CommentDocument, Comment } from 'comments/schemas/comment.schema';
 
 
 @Injectable()
@@ -15,6 +16,7 @@ export class UsersService {
         @InjectModel(User.name) private userModel: Model<UserDocument>,
         @InjectModel(Project.name) private projectModel: Model<ProjectDocument>,
         @InjectModel(Task.name) private taskModel: Model<TaskDocument>,
+        @InjectModel(Comment.name) private commentModel: Model<CommentDocument>
     ) { }
 
     async create(createUserDto: CreateUserDto): Promise<User> {
@@ -51,6 +53,10 @@ export class UsersService {
 
     async findTasks(userId: string) {
         return this.taskModel.find({ assignedTo: userId }).exec();
+    }
+
+    async findComments(userId: string) {
+        return this.commentModel.find({ authorId: userId }).exec();
     }
 
 }

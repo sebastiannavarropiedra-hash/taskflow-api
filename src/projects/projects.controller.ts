@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Param, Get, Patch, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Param, Get, Patch, Delete, Query } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
@@ -19,27 +19,34 @@ export class ProjectsController {
     }
 
     @Get()
-    findAll() {
+    findAll(@Query('startDate') startDate?: string, @Query('endDate') endDate?: string) {
+        if (startDate && endDate) {
+            return this.projectsService.findByDateRange(startDate, endDate);
+        }
         return this.projectsService.findAll();
     }
 
-    @Patch(':id')
-    update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
-        return this.projectsService.update(id, updateProjectDto);
+        @Patch(':id')
+        update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
+            return this.projectsService.update(id, updateProjectDto);
+        }
+
+        @Delete(':id')
+        remove(@Param('id') id: string) {
+            return this.projectsService.remove(id);
+        }
+
+        @Get(':id/tasks')
+        findTasks(@Param('id') id: string) {
+            return this.projectsService.findTasks(id);
+        }
+
+
     }
 
-    @Delete(':id')
-    remove(@Param('id') id: string) {
-        return this.projectsService.remove(id);
-    }
-
-@Get(':id/tasks')
-findTasks(@Param('id') id: string) {
-  return this.projectsService.findTasks(id);
-}
 
 
 
 
 
-}
+

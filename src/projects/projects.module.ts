@@ -9,10 +9,11 @@ import { TasksModule } from 'tasks/tasks.module';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Project.name, schema: ProjectSchema }]),
-    TasksModule, 
+    TasksModule,
+
   ],
   controllers: [ProjectsController],
   providers: [ProjectsService],
-  exports: [MongooseModule], 
+  exports: [MongooseModule],
 })
-export class ProjectsModule {}
+export class ProjectsModule { }

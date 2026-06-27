@@ -38,13 +38,19 @@ export class UsersController {
   }
 
   @Get(':id/projects')
-  findProjects(@Param('id') id: string) {
-    return this.usersService.findProjects(id);
-  }
-  @Get(':id/tasks')
-  findTasks(@Param('id') id: string) {
-    return this.usersService.findTasks(id);
-  }
+findProjects(@Param('id') id: string) {
+  return this.usersService.findProjects(id);
+}
+
+@Get(':id/tasks')
+findTasks(@Param('id') id: string) {
+  return this.usersService.findTasks(id);
+}
+
+@Get(':id/comments')
+findComments(@Param('id') id: string) {
+  return this.usersService.findComments(id);
+}
 
 
 }

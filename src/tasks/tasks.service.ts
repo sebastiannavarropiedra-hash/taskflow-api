@@ -4,10 +4,14 @@ import { Model } from 'mongoose';
 import { Task, TaskDocument } from './schemas/task.schema';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import { CommentDocument, Comment } from 'comments/schemas/comment.schema';
 
 @Injectable()
 export class TasksService {
-  constructor(@InjectModel(Task.name) private taskModel: Model<TaskDocument>) { }
+  constructor(
+    @InjectModel(Task.name) private taskModel: Model<TaskDocument>,
+    @InjectModel(Comment.name) private commentModel: Model<CommentDocument>
+  ) { }
 
   async create(createTaskDto: CreateTaskDto): Promise<Task> {
     const task = new this.taskModel(createTaskDto);
@@ -30,8 +34,14 @@ export class TasksService {
     return this.taskModel.findByIdAndDelete(id).exec();
   }
 
-  async findByStatus(status: string): Promise<Task[]> {
+  async findComments(taskId: string) {
+    return this.commentModel.find({ taskId }).exec();
+  }
+
+  async findByStatus(status: string) {
     return this.taskModel.find({ status }).exec();
   }
+
+
 
 }

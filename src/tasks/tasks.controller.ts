@@ -13,7 +13,10 @@ export class TasksController {
   }
 
   @Get()
-  findAll() {
+  findAll(@Query('status') status?: string) {
+    if (status) {
+      return this.tasksService.findByStatus(status);
+    }
     return this.tasksService.findAll();
   }
 
@@ -37,5 +40,12 @@ export class TasksController {
     return this.tasksService.findByStatus(status);
   }
 
+  @Get(':id/comments')
+  findComments(@Param('id') id: string) {
+    return this.tasksService.findComments(id);
+  }
+
+
+
+
 }
-  
