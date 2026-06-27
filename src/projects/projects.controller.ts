@@ -33,6 +33,10 @@ export class ProjectsController {
         return this.projectsService.remove(id);
     }
 
+@Get(':id/tasks')
+findTasks(@Param('id') id: string) {
+  return this.projectsService.findTasks(id);
+}
 
 
 

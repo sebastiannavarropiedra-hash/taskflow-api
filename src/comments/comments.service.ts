@@ -7,7 +7,7 @@ import { UpdateCommentDto } from './dto/update-comment.dto';
 
 @Injectable()
 export class CommentsService {
-  constructor(@InjectModel(Comment.name) private commentModel: Model<CommentDocument>) {}
+  constructor(@InjectModel(Comment.name) private commentModel: Model<CommentDocument>) { }
 
   async create(createCommentDto: CreateCommentDto): Promise<Comment> {
     const comment = new this.commentModel(createCommentDto);
@@ -37,4 +37,10 @@ export class CommentsService {
   async remove(id: string): Promise<Comment | null> {
     return this.commentModel.findByIdAndDelete(id).exec();
   }
+
+  async findByAuthor(authorId: string) {
+    return this.commentModel.find({ authorId }).exec();
+  }
+
+
 }

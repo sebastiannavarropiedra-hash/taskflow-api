@@ -4,17 +4,20 @@ import { Model } from 'mongoose';
 import { User, UserDocument } from './schemas/users.schema';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Project, ProjectDocument } from 'projects/schemas/project.schema';
 
 
 @Injectable()
 export class UsersService {
 
-    constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) { }
+    constructor(
+        @InjectModel(User.name) private userModel: Model<UserDocument>,
+        @InjectModel(Project.name) private projectModel: Model<ProjectDocument>,) { }
 
-   async create(createUserDto: CreateUserDto): Promise<User> {
-  const user = new this.userModel(createUserDto);
-  return user.save();
-}
+    async create(createUserDto: CreateUserDto): Promise<User> {
+        const user = new this.userModel(createUserDto);
+        return user.save();
+    }
 
 
     // obtener todos los usuarios
@@ -29,9 +32,9 @@ export class UsersService {
     }
 
     // actualizar un usuario por id
-   async update(id: string, updateUserDto: UpdateUserDto): Promise<User | null> {
-  return this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true }).exec();
-}
+    async update(id: string, updateUserDto: UpdateUserDto): Promise<User | null> {
+        return this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true }).exec();
+    }
 
 
     // Eliminar usuario
@@ -39,6 +42,9 @@ export class UsersService {
         return this.userModel.findByIdAndDelete(id).exec();
     }
 
+    async findProjects(userId: string) {
+        return this.projectModel.find({ ownerId: userId }).exec();
+    }
 
 
 }
