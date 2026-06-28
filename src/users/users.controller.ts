@@ -21,10 +21,7 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(id);
-  }
+
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
@@ -37,20 +34,18 @@ export class UsersController {
 
   }
 
-  @Get(':id/projects')
-findProjects(@Param('id') id: string) {
-  return this.usersService.findProjects(id);
-}
+  @Get(':id/projects')   // <- rutas específicas primero
+  findProjects(@Param('id') id: string) { return this.usersService.findProjects(id); }
 
-@Get(':id/tasks')
-findTasks(@Param('id') id: string) {
-  return this.usersService.findTasks(id);
-}
+  @Get(':id/tasks')
+  findTasks(@Param('id') id: string) { return this.usersService.findTasks(id); }
 
-@Get(':id/comments')
-findComments(@Param('id') id: string) {
-  return this.usersService.findComments(id);
-}
+  @Get(':id/comments')
+  findComments(@Param('id') id: string) { return this.usersService.findComments(id); }
+
+  @Get(':id')             // <- ruta genérica al final
+  findOne(@Param('id') id: string) { return this.usersService.findOne(id); }
+
 
 
 }
