@@ -21,7 +21,8 @@ export class Project {
     endDate?: Date;
 
     @Prop({ type: Types.ObjectId, ref: 'User', required: true })
-    ownerId!: string;
+    ownerId!: Types.ObjectId;
+
 
     @Prop({ required: false, select: false })
     passwordHash?: string;

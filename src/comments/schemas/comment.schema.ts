@@ -13,6 +13,10 @@ export class Comment {
 
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   authorId?: Types.ObjectId;
+
+  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
+  ownerId!: Types.ObjectId;
+
 }
 
 export const CommentSchema = SchemaFactory.createForClass(Comment);

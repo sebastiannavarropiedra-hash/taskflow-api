@@ -47,14 +47,14 @@ export class UsersService {
         return this.userModel.findByIdAndDelete(id).exec();
     }
     async findProjects(userId: string) {
-        return this.projectModel.find({ ownerId: userId }).exec();
+        return this.projectModel.find({ ownerId: new Types.ObjectId(userId) }).exec();
     }
 
     async findTasks(userId: string) {
-        return this.taskModel.find({ assignedTo: userId }).exec();
+        return this.taskModel.find({ assignedTo: new Types.ObjectId(userId) }).exec();
     }
 
     async findComments(userId: string) {
-        return this.commentModel.find({ authorId: userId }).exec();
+        return this.commentModel.find({ authorId: new Types.ObjectId(userId) }).exec();
     }
 }
