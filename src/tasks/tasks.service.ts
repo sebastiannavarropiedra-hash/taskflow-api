@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Task, TaskDocument } from './schemas/task.schema';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -35,10 +35,10 @@ export class TasksService {
   }
 
   async findComments(taskId: string) {
-    return this.commentModel.find({ taskId }).exec();
+    return this.commentModel.find({ taskId: new Types.ObjectId(taskId) }).exec();
   }
 
-  async findByStatus(status: string) {
+  async findByStatus(status: 'pending' | 'in_progress' | 'completed') {
     return this.taskModel.find({ status }).exec();
   }
 

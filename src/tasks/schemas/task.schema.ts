@@ -11,8 +11,8 @@ export class Task {
   @Prop()
   description?: string;
 
-  @Prop({ required: true, enum: ['pending', 'in-progress', 'completed'], default: 'pending' })
-  status?: string;
+  @Prop({ required: true, enum: ['pending', 'in_progress', 'completed'], default: 'pending' })
+  status?: 'pending' | 'in_progress' | 'completed';
 
   @Prop()
   deadline?: Date;
@@ -22,9 +22,23 @@ export class Task {
 
   @Prop({ type: Types.ObjectId, ref: 'User' })
   assignedTo?: Types.ObjectId;
-  
+
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   ownerId!: Types.ObjectId;
+
+  @Prop({ type: [{ type: Types.ObjectId, ref: 'Comment' }] })
+  comments?: Types.ObjectId[];
+
+  @Prop({ type: Date, default: Date.now })
+  createdAt?: Date;
+
+  @Prop({ type: Date, default: Date.now })
+  updatedAt?: Date;
+
+  @Prop({ type: Date, default: null })
+  completedAt?: Date | null;
+
+
 
 }
 
