@@ -42,7 +42,7 @@ export class UsersController {
   findComments(@Param('id') id: string) { return this.usersService.findComments(id); }
 
   @Get(':id')             
-  findOne(@Param('id') id: number) { return this.usersService.findOne(id); }
+  findOne(@Param('id') id: string) { return this.usersService.findOne(id); }
 
 
 
