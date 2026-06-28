@@ -34,18 +34,9 @@ export class TasksService {
     return this.taskModel.findByIdAndDelete(id).exec();
   }
 
- async findComments(taskId: string) {
-  // intenta match por string y por ObjectId (si es convertible)
-  const filters: any[] = [{ taskId }];
-
-  try {
-    filters.push({ taskId: new Types.ObjectId(taskId) });
-  } catch (e) {
-    // no convertible a ObjectId -> ignorar
+  async findComments(taskId: string) {
+    return this.commentModel.find({ taskId: new Types.ObjectId(taskId) }).exec();
   }
-
-  return this.commentModel.find({ $or: filters }).lean().exec();
-}
 
   async findByStatus(status: 'pending' | 'in_progress' | 'completed') {
     return this.taskModel.find({ status }).exec();
