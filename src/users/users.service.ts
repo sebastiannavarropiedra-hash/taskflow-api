@@ -32,7 +32,7 @@ export class UsersService {
 
 
     // obtener un usuario por id
-    async findOne(id: string): Promise<User | null> {
+    async findOne(id: number): Promise<User | null> {
         return this.userModel.findById(id).exec();
     }
 
