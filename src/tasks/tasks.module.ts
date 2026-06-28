@@ -4,10 +4,12 @@ import { TasksService } from './tasks.service';
 import { TasksController } from './tasks.controller';
 import { Task, TaskSchema } from './schemas/task.schema';
 import { CommentsModule } from 'comments/comments.module';
+import { Comment, CommentSchema } from 'comments/schemas/comment.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Task.name, schema: TaskSchema }]), CommentsModule
+    MongooseModule.forFeature([{ name: Task.name, schema: TaskSchema }]),
+    MongooseModule.forFeature([{ name: Comment.name, schema: CommentSchema }]),
 
   ],
   controllers: [TasksController],
