@@ -46,20 +46,20 @@ export class UsersService {
     async remove(id: string): Promise<User | null> {
         return this.userModel.findByIdAndDelete(id).exec();
     }
-   
-    
+
+
     async findProjects(userId: string) {
-  return this.projectModel.find({ ownerId: userId }).lean().exec();
-}
+        return this.projectModel.find({ ownerId: new Types.ObjectId(userId) }).lean().exec();
+    }
 
-async findTasks(userId: string) {
-  return this.taskModel.find({ assignedTo: userId }).lean().exec();
-}
+    async findTasks(userId: string) {
+        return this.taskModel.find({ assignedTo: userId }).lean().exec();
+    }
 
-async findComments(userId: string) {
-  return this.commentModel.find({ authorId: userId }).lean().exec();
-}
+    async findComments(userId: string) {
+        return this.commentModel.find({ authorId: userId }).lean().exec();
+    }
 
 
-    
+
 }

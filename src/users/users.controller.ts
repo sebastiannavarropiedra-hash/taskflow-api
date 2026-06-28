@@ -8,7 +8,6 @@ export class UsersController {
 
   constructor(private readonly usersService: UsersService) { }
 
-  // POST /users → Crear usuario
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
@@ -33,7 +32,7 @@ export class UsersController {
 
   }
 
-  @Get(':id/projects')   // <- rutas específicas primero
+  @Get(':id/projects')   
   findProjects(@Param('id') id: string) { return this.usersService.findProjects(id); }
 
   @Get(':id/tasks')
@@ -42,7 +41,7 @@ export class UsersController {
   @Get(':id/comments')
   findComments(@Param('id') id: string) { return this.usersService.findComments(id); }
 
-  @Get(':id')             // <- ruta genérica al final
+  @Get(':id')             
   findOne(@Param('id') id: string) { return this.usersService.findOne(id); }
 
 
