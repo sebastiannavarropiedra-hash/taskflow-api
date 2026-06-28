@@ -1,45 +1,54 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import { Controller, Get, Post, Patch, Delete, Body, Param, Query, ParseEnumPipe } from '@nestjs/common';
+import { TasksService } from './tasks.service';
+import { CreateTaskDto } from './dto/create-task.dto';
+import { UpdateTaskDto } from './dto/update-task.dto';
 
-export type TaskDocument = Task & Document;
-
-@Schema({ timestamps: true })
-export class Task {
-  @Prop({ required: true })
-  title?: string;
-
-  @Prop()
-  description?: string;
-
-  @Prop({ required: true, enum: ['pending', 'in_progress', 'completed'], default: 'pending' })
-  status?: 'pending' | 'in_progress' | 'completed';
-
-  @Prop()
-  deadline?: Date;
-
-  @Prop({ type: Types.ObjectId, ref: 'Project', required: true })
-  projectId?: Types.ObjectId;
-
-  @Prop({ type: Types.ObjectId, ref: 'User' })
-  assignedTo?: Types.ObjectId;
-
-  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
-  ownerId!: Types.ObjectId;
-
-  @Prop({ type: [{ type: Types.ObjectId, ref: 'Comment' }] })
-  comments?: Types.ObjectId[];
-
-  @Prop({ type: Date, default: Date.now })
-  createdAt?: Date;
-
-  @Prop({ type: Date, default: Date.now })
-  updatedAt?: Date;
-
-  @Prop({ type: Date, default: null })
-  completedAt?: Date | null;
-
-
-
+enum TaskStatus {
+  pending = 'pending',
+  in_progress = 'in_progress',
+  completed = 'completed',
 }
 
-export const TaskSchema = SchemaFactory.createForClass(Task);
+@Controller('tasks')
+export class TasksController {
+  constructor(private readonly tasksService: TasksService) {}
+
+  @Post()
+  create(@Body() createTaskDto: CreateTaskDto) {
+    return this.tasksService.create(createTaskDto);
+  }
+
+  @Get('filter')
+  findByStatusQuery(
+    @Query('status', new ParseEnumPipe(TaskStatus, { optional: true })) status?: TaskStatus
+  ) {
+    if (status) return this.tasksService.findByStatus(status);
+    return this.tasksService.findAll();
+  }
+
+  @Get()
+  findAll(@Query('status', new ParseEnumPipe(TaskStatus, { optional: true })) status?: TaskStatus) {
+    if (status) return this.tasksService.findByStatus(status);
+    return this.tasksService.findAll();
+  }
+
+  @Get(':id/comments')
+  findComments(@Param('id') id: string) {
+    return this.tasksService.findComments(id);
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.tasksService.findOne(id);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
+    return this.tasksService.update(id, updateTaskDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.tasksService.remove(id);
+  }
+}
