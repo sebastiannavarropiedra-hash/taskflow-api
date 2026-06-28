@@ -5,6 +5,7 @@ export type TaskDocument = Task & Document;
 
 @Schema({ timestamps: true })
 export class Task {
+
   @Prop({ required: true })
   title?: string;
 
@@ -14,7 +15,7 @@ export class Task {
   @Prop({ required: true, enum: ['pending', 'in_progress', 'completed'], default: 'pending' })
   status?: 'pending' | 'in_progress' | 'completed';
 
-  @Prop({ type: Types.ObjectId, ref: 'Task', required: true })
+  @Prop({ type: Types.ObjectId, ref: 'Task', required: false })
   taskId!: Types.ObjectId;
 
   @Prop({ type: Types.ObjectId, ref: 'Project', required: true })
@@ -23,21 +24,7 @@ export class Task {
   @Prop({ type: Types.ObjectId, ref: 'User' })
   assignedTo?: Types.ObjectId;
 
-  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
-  ownerId!: Types.ObjectId;
-
-  @Prop({ type: [{ type: Types.ObjectId, ref: 'Comment' }] })
-  comments?: Types.ObjectId[];
-
-  @Prop({ type: Date, default: Date.now })
-  createdAt?: Date;
-
-  @Prop({ type: Date, default: Date.now })
-  updatedAt?: Date;
-
-  @Prop({ type: Date, default: null })
-  completedAt?: Date | null;
-
+ 
 
 
 }
