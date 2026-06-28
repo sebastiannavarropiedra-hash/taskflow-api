@@ -11,13 +11,13 @@ export class Comment {
   @Prop({ type: Types.ObjectId, ref: 'Task', required: true })
   taskId?: Types.ObjectId;
 
-  @Prop({ type: Types.ObjectId, ref: 'Project', required: true })
+  @Prop({ type: Types.ObjectId, ref: 'Project', required: false })
   projectId?: Types.ObjectId;
 
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   authorId?: Types.ObjectId;
 
-  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
+  @Prop({ type: Types.ObjectId, ref: 'User', required: false })
   ownerId!: Types.ObjectId;
 
 }
