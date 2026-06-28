@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { User, UserDocument } from './schemas/users.schema';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -46,7 +46,6 @@ export class UsersService {
     async remove(id: string): Promise<User | null> {
         return this.userModel.findByIdAndDelete(id).exec();
     }
-
     async findProjects(userId: string) {
         return this.projectModel.find({ ownerId: userId }).exec();
     }
@@ -58,5 +57,4 @@ export class UsersService {
     async findComments(userId: string) {
         return this.commentModel.find({ authorId: userId }).exec();
     }
-
 }
