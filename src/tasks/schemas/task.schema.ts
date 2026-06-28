@@ -14,8 +14,8 @@ export class Task {
   @Prop({ required: true, enum: ['pending', 'in_progress', 'completed'], default: 'pending' })
   status?: 'pending' | 'in_progress' | 'completed';
 
-  @Prop()
-  deadline?: Date;
+  @Prop({ type: Types.ObjectId, ref: 'Task', required: true })
+  taskId!: Types.ObjectId;
 
   @Prop({ type: Types.ObjectId, ref: 'Project', required: true })
   projectId?: Types.ObjectId;

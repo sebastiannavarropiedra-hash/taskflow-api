@@ -11,6 +11,9 @@ export class Comment {
   @Prop({ type: Types.ObjectId, ref: 'Task', required: true })
   taskId?: Types.ObjectId;
 
+  @Prop({ type: Types.ObjectId, ref: 'Project', required: true })
+  projectId?: Types.ObjectId;
+
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   authorId?: Types.ObjectId;
 
